@@ -194,16 +194,7 @@ select.form-control {
 }
 
 /* Booking Summary */
-.summary-container {
-  flex: 1;
-  background: white;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 20px;
-  height: fit-content;
-}
+
 
 .summary-title {
   color: #2f79c9;
@@ -361,3 +352,179 @@ select.form-control {
     position: static;
   }
 }
+/* Calendar Section */
+.calendar-section {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+#calendar {
+  transform: scale(0.9);
+}
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .calendar-section {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-section {
+    margin-top: 10px;
+  }
+}
+.calendar-section {
+  padding: 60px 5%;
+  background-color: #fff;
+  text-align: center;
+  margin-top: 10rem;
+}
+
+#calendar {
+  max-width: 1000px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Calendar Header */
+.fc-header-toolbar {
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.fc-toolbar-title {
+  font-family: 'Playfair Display', serif;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.fc-button {
+  background-color: #59aaec;
+  border: none;
+  color: #fff;
+  text-transform: capitalize;
+  border-radius: 5px;
+  padding: 6px 12px;
+  transition: all 0.3s ease;
+}
+
+.fc-button:hover {
+  background-color: #007acc;
+  transform: translateY(-2px);
+}
+
+.fc-button:active, .fc-button:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.fc-daygrid-day {
+  border-color: #f0f0f0;
+}
+
+.fc-daygrid-day-top {
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.fc-daygrid-day-number {
+  color: #333;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.fc-day-today {
+  background-color: rgba(89, 170, 236, 0.1);
+}
+
+.fc-day-today .fc-daygrid-day-number {
+  color: #59aaec;
+  font-weight: 600;
+}
+
+.fc-daygrid-event {
+  background-color: #ff9800;
+  border: none;
+  border-radius: 3px;
+  padding: 2px 5px;
+  font-size: 0.8rem;
+}
+
+.fc-daygrid-event-dot {
+  display: none;
+}
+
+.fc-daygrid-event:hover {
+  background-color: #e68900;
+}
+
+/* Day headers */
+.fc-col-header-cell {
+  background-color: #59aaec;
+  color: #fff;
+  padding: 8px 0;
+}
+
+.fc-col-header-cell-cushion {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Event popover */
+.fc-popover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: none;
+  border-radius: 8px;
+}
+
+.fc-popover-header {
+  background-color: #59aaec;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+/* Remove the duplicate summary container styles from the tours section */
+.tours-section .summary-container {
+  display: none;
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .fc-toolbar {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .fc-toolbar-title {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+  }
+
+  .fc-header-toolbar {
+      padding: 10px 5px;
+  }
+
+  #calendar {
+      height: 500px;
+  }
+}
+.summary-container {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin: 20px auto; 
+  width: 100%; 
+  max-width: 1200px; 
+  height: fit-content;
+}
+

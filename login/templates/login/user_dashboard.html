@@ -26,28 +26,37 @@
         </div>
 
         <ul class="nav-links">
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a></li>
-            {% endif %}
-            <li><a href="{% url 'index' %}" class="nav-link">Home</a></li>
-            <li><a href="{% url 'amenities' %}" class="nav-link">Amenities</a></li>
-            <li><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
-            <li><a href="{% url 'about_us' %}" class="nav-link">About Us</a></li>
+             <li><a href="{% url 'index' %}" class="nav-link">Home</a></li>
+            <li><a href="{% url 'user_setting' %}" class="nav-link">Setting</a></li>
+           
+     <li><a href="{% url 'logout' %}" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a></li>
             <li><a href="{% url 'check_in' %}" class="book-btn">Book Now</a></li>
+            
         </ul>
     </nav>
 </header>
 
 <div class="dashboard-container">
     <div class="dashboard-header">
-        <h1 class="dashboard-title">Your Dashboard</h1>
-        <a href="{% url 'logout' %}" class="logout-btn">
-            <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
+        <h1 class="dashboard-title">
+            {% if user.is_authenticated %}
+                Welcome back {{ user.username }}!!
+            {% endif %}
+
+        </h1>
+        <br>
+    
+
     </div>
+    <h1 class="dashboard-title">
+        Dashboard
+
+    </h1>
 
     {% if user_books %}
-    <h2 class="mb-3">Your Bookings</h2>
+   
     <table class="booking-table">
         <thead>
             <tr>

@@ -14,6 +14,10 @@ urlpatterns=[
     path("schedule", views.schedule, name="schedule"),
     path("approving", views.payment, name="approving"),
     path("refund", views.event_status, name="refund"),
+    path("admin_setting", views.admin_setting, name="admin_setting" ),
+ 
+
+
     path("user_dashboard", views.user_dashboard, name="user_dashboard"),
     path("delete_book/<int:id>/", views.delete_book, name="delete_book"),
     path("cancel_book/<int:id>/", views.cancel_book, name="cancel_book"),
@@ -22,4 +26,4 @@ urlpatterns=[
 
     path("policies", views.policies, name="policies")
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

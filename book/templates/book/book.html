@@ -7,6 +7,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Jomolhari&display=swap" rel="stylesheet">
 {% endblock %}
+
+{% block js %}
+<script src="{% static 'calendar_library/index.global.min.js' %}"></script>
+{% endblock %}
 {% block body %}
   <nav class="navbar">
     <ul class="nav-links">
@@ -22,66 +26,81 @@
     </div>
   </div>
 
-  <div class="booking-container">
-    <div class="booking-form-container">
-      <h2 class="form-title">Booking Details</h2>
-      <form method="post" action="{% url 'check_in' %}" class="booking-form">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="book_type">Booking Type</label>
-          <select id="book_type" name="book_type" class="form-control" required>
-      
-           
-            <option value="Day Tour">Day Tour</option>
-            <option value="Night Tour">Night Tour</option>
-            <option value="22 Hours">22 Hours</option>
-            <option value="Full book">Custom</option>
-          </select>
-        </div>
-        
-        <div class="form-row">
-          <div class="form-group">
-            <label for="start_date">Check-in Date</label>
-            <input type="date" id="start_date" name="start_date" class="form-control" required>
-          </div>
+  <div class="booking-container" style="display: flex; gap: 20px;">
+    <!-- LEFT: Booking Details -->
+    <div class="booking-form-container" style="flex: 1;">
+                 <form method="post" action="{% url 'check_in' %}" class="booking-form">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="book_type">Booking Type</label>
+              <select id="book_type" name="book_type" class="form-control" required>
           
-          <div class="form-group">
-            <label for="end_date">Check-out Date</label>
-            <input type="date" id="end_date" name="end_date" class="form-control" required>
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="payment_method">Payment Method</label>
-          <select id="payment_method" name="payment_method" class="form-control" required>
-            <option value="">Select payment method</option>
-            <option value="gcash">Gcash</option>
-
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="payment_type">Payment Type</label>
-          <select id="payment_type" name="payment_type" class="form-control" required>
-            <option value="">Select payment type</option>
-            <option value="Down payment">Down Payment</option>
-            <option value="Full payment">Full Payment</option>
-          </select>
-        </div>
-        
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Confirm Booking</button>
-        </div>
-      </form>
-      {% if error %}
-        <div style="color:red">The selected date is already booked. Please choose a different one.</div>
-      {% endif %}
-
-    </div>
+               
+                <option value="Day Tour">Day Tour</option>
+                <option value="Night Tour">Night Tour</option>
+                <option value="22 Hours">22 Hours</option>
+                <option value="Full book">Custom</option>
+              </select>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="start_date">Check-in Date</label>
+                <input type="date" id="start_date" name="start_date" class="form-control" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="end_date">Check-out Date</label>
+                <input type="date" id="end_date" name="end_date" class="form-control" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="payment_method">Payment Method</label>
+              <select id="payment_method" name="payment_method" class="form-control" required>
+                <option value="">Select payment method</option>
+                <option value="gcash">Gcash</option>
     
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="payment_type">Payment Type</label>
+              <select id="payment_type" name="payment_type" class="form-control" required>
+                <option value="">Select payment type</option>
+                <option value="Down payment">Down Payment</option>
+                <option value="Full payment">Full Payment</option>
+              </select>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Confirm Booking</button>
+            </div>
+          </form>
+    </div>
+  
+    <!-- RIGHT: Calendar + Summary stacked -->
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+    
+      <div class="calendar-container">
+        <h2>Check Resort Availability</h2>
+        <div id="calendar"></div>
+      </div>
+  
+    
+
+      
+    </div>
+ 
+
+ 
+  
+
+  
+  <div class="booking-container">
     <div class="summary-container">
-      <div class="booking-summary">
-        <h3 class="summary-title">Booking Summary</h3>
+      <h3>Booking Summary</h3>
+            <h3 class="summary-title">Booking Summary</h3>
         <div class="summary-item">
           <span class="summary-label">Booking Type:</span>
           <span class="summary-value" id="summary-book-type">-</span>
@@ -107,12 +126,7 @@
           <span id="summary-price">₱0</span>
         </div>
       </div>
-    </div>
-  </div>
-  
-
-  
-  <div class="booking-container">
+    
     <div class="tours-section">
       <div class="tour-card">
         <div class="tour-content">
@@ -279,6 +293,36 @@
       setupSliders();
       initDatePickers();
       updateSummary();
+
+
+      const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,dayGridWeek'
+            },
+            height: 650,
+            contentHeight: 600,
+            aspectRatio: 2,
+            events: "{% url 'event_data' %}",
+            eventDisplay: 'block',
+          
+            navLinks: true,
+            nowIndicator: true,
+            editable: false,
+            selectable: false,
+           
+            buttonText: {
+                today: 'Today',
+
+            }
+        });
+        calendar.render();
     });
+
+
+
   </script>
 {% endblock %}

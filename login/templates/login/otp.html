@@ -6,13 +6,9 @@
 
 {% block body %}
 
-{% if otp %}
-    <div>{{ otp }}</div>
-    <div>{{ key }}</div>
-    <div>{{ session }}</div>
-{% endif %}
 
-<div>{{ otp_code }}</div>
+
+<div>{{ otp }}</div>
 <form action="{% url 'otp' %}" method="post">
     {% csrf_token %}
     <h2>Enter OTP</h2>
